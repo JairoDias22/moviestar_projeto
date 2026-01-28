@@ -15,9 +15,10 @@
   if($userData && isset($userData->$id)){
 
     $userMovies = $movieDao->getMoviesByUserId($userData->id);
-  }
-  $userMovies =  [];
 
+  } else{
+    $userMovies =  [];
+  }
 ?>
   <div id="main-container" class="container-fluid">
     <h2 class="section-title">Dashboard</h2>
