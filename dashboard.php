@@ -12,8 +12,13 @@
 
   $userData = $userDao->verifyToken(true);
 
-  $userMovies = $movieDao->getMoviesByUserId($userData->id);
+   if($userData && isset($userData->$id)){
 
+    $userMovies = $movieDao->getMoviesByUserId($userData->id);
+
+  } else{
+    $userMovies =  [];
+  }
 ?>
   <div id="main-container" class="container-fluid">
     <h2 class="section-title">Dashboard</h2>
@@ -32,7 +37,7 @@
           <th scope="col" class="actions-column">Ações</th>
         </thead>
         <tbody>
-          <?php foreach($userMovies as $movie): ?>
+          <?php foreach($userMovies as  $movie): ?>
           <tr>
             <td scope="row"><?= $movie->id ?></td>
             <td><a href="<?= $BASE_URL ?>movie.php?id=<?= $movie->id ?>" class="table-movie-title"><?= $movie->title ?></a></td>

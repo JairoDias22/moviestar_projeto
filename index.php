@@ -11,11 +11,11 @@
   $movieDao = new MovieDAO($conn, $BASE_URL);
 
   // Buscar os filmes mais recentes
-  $latestMovies = $movieDao->getLatestMovies();
+  $latestMovies = $movieDao->getLatestMovies() ?? []; /// Operador de Coalescencia nula
 
   // Buscar filmes de categorias específicas
-  $actionMovies = $movieDao->getMoviesByCategory("Ação");
-  $comedyMovies = $movieDao->getMoviesByCategory("Comédia");
+  $actionMovies = $movieDao->getMoviesByCategory("Ação") ?? [];
+  $comedyMovies = $movieDao->getMoviesByCategory("Comédia") ?? [];
 ?>
 <div id="main-container" class="container-fluid">
 
@@ -23,7 +23,11 @@
   <h2 class="section-title">Filmes novos</h2>
   <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
   <div class="movies-container">
+<<<<<<< HEAD
     <?php foreach($movieDao as $movie): ?>
+=======
+    <?php foreach($latestMovies ?? [] as $movie): ?>
+>>>>>>> main
       <?php 
         // Exibir cada filme usando o template movie_card.php
         require("templates/movie_card.php"); 
