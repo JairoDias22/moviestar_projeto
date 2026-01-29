@@ -46,7 +46,7 @@
     </form>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a href="newmovie.html" class="nav-link">Incluir Filme</a>
+        <a href="newmovie.php" class="nav-link">Incluir Filme</a>
       </li>
       <li class="nav-item">
         <a href="html" class="nav-link">Meus Filmes</a>

@@ -1,9 +1,11 @@
 <?php
   // Incluir o cabeçalho
   require_once("templates/header.php");
+  require_once("templates/movie_card.php");
 
   // Incluir o DAO dos filmes
   require_once("dao/MovieDAO.php");
+  
 
   // Criar o objeto DAO para acessar os filmes
   $movieDao = new MovieDAO($conn, $BASE_URL);
@@ -21,13 +23,13 @@
   <h2 class="section-title">Filmes novos</h2>
   <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
   <div class="movies-container">
-    <?php foreach($latestMovies as $movie): ?>
+    <?php foreach($movieDao as $movie): ?>
       <?php 
         // Exibir cada filme usando o template movie_card.php
         require("templates/movie_card.php"); 
       ?>
     <?php endforeach; ?>
-    <?php if(count($latestMovies) === 0): ?>
+    <?php if($movieDao === 0): ?>
       <p class="empty-list">Ainda não há filmes cadastrados!</p>
     <?php endif; ?>
   </div>
@@ -36,10 +38,10 @@
   <h2 class="section-title">Ação</h2>
   <p class="section-description">Veja os melhores filmes de ação</p>
   <div class="movies-container">
-    <?php foreach($actionMovies as $movie): ?>
+    <?php foreach($movieDao as $movie): ?>
       <?php require("templates/movie_card.php"); ?>
     <?php endforeach; ?>
-    <?php if(count($actionMovies) === 0): ?>
+    <?php if($actionMovies === 0): ?>
       <p class="empty-list">Ainda não há filmes de ação cadastrados!</p>
     <?php endif; ?>
   </div>
@@ -48,10 +50,10 @@
   <h2 class="section-title">Comédia</h2>
   <p class="section-description">Veja os melhores filmes de comédia</p>
   <div class="movies-container">
-    <?php foreach($comedyMovies as $movie): ?>
+    <?php foreach($movieDao as $movie): ?>
       <?php require("templates/movie_card.php"); ?>
     <?php endforeach; ?>
-    <?php if(count($comedyMovies) === 0): ?>
+    <?php if($comedyMovies === 0): ?>
       <p class="empty-list">Ainda não há filmes de comédia cadastrados!</p>
     <?php endif; ?>
   </div>
