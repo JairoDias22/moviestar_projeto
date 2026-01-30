@@ -9,7 +9,7 @@ class UserDAO implements UserDAOInterface {
     private $url;
     private $message;
 
-    public function __construct(PDO $conn, $url) {
+    public function __construct(PDO $conn, $url, $message) {
         $this->conn = $conn;
         $this->url = $url;
         $this->message = new Message($url);
@@ -48,7 +48,7 @@ class UserDAO implements UserDAOInterface {
 
             $this->setTokenToSession($user->token);
         }
-        
+
        $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "editprofile.php");
     }
 
