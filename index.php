@@ -23,11 +23,7 @@
   <h2 class="section-title">Filmes novos</h2>
   <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
   <div class="movies-container">
-<<<<<<< HEAD
     <?php foreach($movieDao as $movie): ?>
-=======
-    <?php foreach($latestMovies ?? [] as $movie): ?>
->>>>>>> main
       <?php 
         // Exibir cada filme usando o template movie_card.php
         require("templates/movie_card.php"); 
