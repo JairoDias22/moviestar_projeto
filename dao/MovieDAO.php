@@ -25,7 +25,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function findAll() {
         // Retorna todos os filmes
-        $stmt = $this->conn->query("SELECT * FROM movie ");
+        $stmt = $this->conn->query("SELECT * FROM movies ");
         $movie=[];
         
          foreach($stmt->fetchAll() as $data) {
@@ -37,7 +37,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function getLatestMovies() {
         // Retorna os filmes mais recentes
-        $stmt = $this->conn->query("SELECT * FROM movie ORDER BY id DESC LIMIT 10");
+        $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC LIMIT 10");
         $movie = [];
 
         foreach($stmt->fetchAll() as $data) {
@@ -49,7 +49,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function getMoviesByCategory($category) {
         // Retorna filmes filtrados por categoria
-          $stmt = $this->conn->prepare("SELECT * FROM movie WHERE category = :category");
+          $stmt = $this->conn->prepare("SELECT * FROM movies WHERE category = :category");
             $stmt->bindParam(":category", $category);
             $stmt->execute();
 
@@ -63,7 +63,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function getMoviesByUserId($id) {
         // Retorna filmes cadastrados por um usuário específico
-         $stmt = $this->conn->prepare("SELECT * FROM movie WHERE users_id = :id");
+         $stmt = $this->conn->prepare("SELECT * FROM movies WHERE users_id = :id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 
@@ -77,7 +77,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function findById($id) {
         // Retorna um filme pelo ID
-            $stmt = $this->conn->prepare("SELECT * FROM movie WHERE id = :id");
+            $stmt = $this->conn->prepare("SELECT * FROM movies WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 
@@ -91,7 +91,7 @@ class MovieDAO implements MovieDAOInterface {
     public function findByTitle($title) {
         // Retorna filmes cujo título contenha a string informada
        
-            $stmt = $this->conn->prepare("SELECT * FROM movie WHERE title = :title");
+            $stmt = $this->conn->prepare("SELECT * FROM movies WHERE title = :title");
             $stmt->bindParam(":title", $title);
             $stmt->execute();
 
@@ -107,10 +107,10 @@ class MovieDAO implements MovieDAOInterface {
             return $movie;
     }
 
-    public function create(Movie $movie) {
+    public function create(Movie $movies) {
         // Adiciona um novo filme
          $stmt = $this->conn->prepare("
-            INSERT INTO movie (title, description, image, trailer, category, length, users_id)
+            INSERT INTO movies (title, description, image, trailer, category, length, users_id)
             VALUES (:title, :description, :image, :trailer, :category, :length, :users_id)");
 
             $stmt->bindParam(":title", $movie->title);
@@ -127,7 +127,7 @@ class MovieDAO implements MovieDAOInterface {
     public function update(Movie $movie) {
         // Atualiza os dados de um filme existente
             $stmt = $this->conn->prepare("
-            UPDATE movie SET 
+            UPDATE movies SET 
                 title = :title,
                 description = :description,
                 image = :image,
@@ -149,7 +149,7 @@ class MovieDAO implements MovieDAOInterface {
 
     public function destroy($id) {
         // Remove um filme do sistema
-        $stmt = $this->conn->prepare("DELETE FROM movie WHERE id = :id");
+        $stmt = $this->conn->prepare("DELETE FROM movies WHERE id = :id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
     }

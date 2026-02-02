@@ -17,6 +17,7 @@ class ReviewDao implements ReviewDAOInterface {
         $reviewObject->review = $data["review"];
         $reviewObject->users_id = $data["users_id"];
         $reviewObject->movies_id = $data["movies_id"];
+
         return $reviewObject;
     }
 
@@ -42,8 +43,8 @@ class ReviewDao implements ReviewDAOInterface {
 
     public function getMoviesReview($id) {
         // Retorna todas as reviews de um filme
-        $stmt = $this->conn->prepare("SELECT * FROM reviews WHERE movies_id = :id");
-        $stmt->bindParam(":id", $id);
+        $stmt = $this->conn->prepare("SELECT * FROM reviews WHERE movies_id = :movies_id");
+        $stmt->bindParam(":movies_id", $movies_id);
         $stmt->execute();
 
         $reviews = [];
@@ -58,10 +59,10 @@ class ReviewDao implements ReviewDAOInterface {
         // Verifica se o usuário já fez review desse filme
         $stmt = $this->conn->prepare("
             SELECT id FROM reviews 
-            WHERE movies_id = :id AND users_id = :userId
+            WHERE movies_id = :movies_id AND users_id = :user_id
         ");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":userId", $userId);
+        $stmt->bindParam(":movies_id", $movies_id);
+        $stmt->bindParam(":user_id", $user_id);
         $stmt->execute();
 
         return $stmt->rowCount() > 0;
@@ -70,15 +71,27 @@ class ReviewDao implements ReviewDAOInterface {
     public function getRatings($id) {
         // Calcula a média das avaliações de um filme
         $stmt = $this->conn->prepare("
-            SELECT AVG(rating) AS media 
+            SELECT rating  
             FROM reviews 
             WHERE movies_id = :id
         ");
+
         $stmt->bindParam(":id", $id);
         $stmt->execute();
 
-        $result = $stmt->fetch();
-        return $result["media"];
-    
+        if($stmt->rowCount() > 0) {
+            $ratings = $stmt->fetchAll();
+            $total = 0;
+            
+            foreach($ratings as $item){
+                $total += $item["rating"];
+            }
+
+            $media = $total / count($ratings);
+            return round($media, 1);
+        }
+
+         return 0;
     }
+ 
 }
