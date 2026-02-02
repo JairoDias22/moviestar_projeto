@@ -8,7 +8,7 @@
 
   $message = new Message($BASE_URL);
 
-  $userDao = new UserDAO($conn, $BASE_URL);
+  $userDao = new UserDAO($conn, $BASE_URL, $message);
 
   // Resgata o tipo do formulário
   $type = filter_input(INPUT_POST, "type");
