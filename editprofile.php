@@ -1,11 +1,10 @@
 <?php
   require_once("templates/header.php");
-
   require_once("models/User.php");
   require_once("dao/UserDAO.php");
 
   $user = new User();
-  $userDao = new UserDao($conn, $BASE_URL);
+  $userDao = new UserDao($conn, $BASE_URL, $message);
 
   $userData = $userDao->verifyToken(true);
 

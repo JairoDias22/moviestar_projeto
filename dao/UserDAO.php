@@ -49,9 +49,6 @@ class UserDAO implements UserDAOInterface {
             $this->setTokenToSession($user->token);
 
             $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
-        } else{
-
-       $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "auth.php");
         }
     }
 
@@ -70,13 +67,23 @@ class UserDAO implements UserDAOInterface {
 
     public function verifyToken($protected = false) {
 
-        if($protected) {
-            // Redireciona usuário não autenticado
+         if(!empty($_SESSION["token"])) {
+            $token = $_SESSION["token"];
+            $user = $this->findByToken($token);
+
+        if($user) {
+            return $user; // Retorna o OBJETO User
+        } else if($protected) {
+            // Se for página protegida e não achar o user, manda pro auth
+            $this->message->setMessage("Faça a autenticação para acessar esta página!", "error", "index.php");
         }
-
-        return false;
-
+    } else if($protected) {
+        $this->message->setMessage("Faça a autenticação para acessar esta página!", "error", "index.php");
     }
+
+    return false; // Retorna FALSE se não estiver logado
+}
+
 
     public function setTokenToSession($token, $redirect = true) {
 
@@ -84,9 +91,10 @@ class UserDAO implements UserDAOInterface {
     
         if($redirect) {
             // Redireciona para o perfil do usuario
-            header("Location: " . $this->$url . "editprofile.php");
-            exit;
+            $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "editprofile.php");
+        
         }
+
     }
 
     public function authenticateUser($email, $password) {
