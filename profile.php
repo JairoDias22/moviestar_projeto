@@ -8,7 +8,7 @@
   require_once("auth.php");
 
   $user = new User();
-  $userDao = new UserDAO($conn, $BASE_URL);
+  $userDao = new UserDAO($conn, $BASE_URL, $message);
   $movieDao = new MovieDAO($conn, $BASE_URL);
 
   // Receber id do usuário
