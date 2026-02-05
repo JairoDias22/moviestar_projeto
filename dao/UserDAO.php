@@ -133,13 +133,15 @@ class UserDAO {
     public function destroyToken() {
         // Redirecionar e apresentar a mensagem de sucesso
         $_SESSION["token"] = "token excluido";
-        header("Location :" . $this->$url. "index.php");
+        
+        $this->message->setMessage("Token excluído com sucesso", "sucess", "index.php");
     }
 
     public function changePassword(User $user) {
         // Redirecionar e apresentar a mensagem de sucesso
         $_SESSION["password"] = "Senha Alterada";
-        header("Location : " . $this->$url . "");
+        
+        $this->message->setMessage("Senha alterada com sucesso!", "sucess", "editprofile.php");
     }
 
 }
