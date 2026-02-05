@@ -48,6 +48,7 @@
     <?php if($userData): ?> <!--usando variavel if para verificar a existência de cadastro de usuário--> 
     <ul class="navbar-nav">
       <li class="nav-item">
+<<<<<<< HEAD
         <a href="<?= $BASE_URL ?>newmovie.php" class="nav-link"><i class="bi bi-plus-square"></i>Incluir Filme</a>
       </li>
       <li class="nav-item">
@@ -58,6 +59,18 @@
       </li>
       <li class="nav-item">
         <a href="<?= $BASE_URL ?>logout.php" class="nav-link">Sair</a>
+=======
+        <a href="newmovie.php" class="nav-link">Incluir Filme</a>
+      </li>
+      <li class="nav-item">
+        <a href="movie.php" class="nav-link">Meus Filmes</a>
+      </li>
+      <li class="nav-item">
+        <a href="profile.php" class="nav-link bold">name</a>
+      </li>
+      <li class="nav-item">
+        <a href="logout.php" class="nav-link">Sair</a>
+>>>>>>> 8c338aa76803579fc867c5fe7d4abb4845be7325
       </li>
          <?php else: ?>
       <li class="nav-item">
