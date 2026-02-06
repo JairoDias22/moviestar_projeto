@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../models/Review.php");
 
 class ReviewDao {
 
-    private $conn;
+ private $conn;
 
     public function __construct(PDO $conn) {
         $this->conn = $conn;

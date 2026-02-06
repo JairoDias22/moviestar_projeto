@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../models/Movie.php");
 
 class MovieDAO {
 
-    private $conn;
+      private $conn;
 
     public function __construct(PDO $conn) {
         $this->conn = $conn;

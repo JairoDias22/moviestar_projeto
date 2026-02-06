@@ -9,10 +9,10 @@ class UserDAO {
     private $url;
     private $message;
 
-    public function __construct(PDO $conn, $url, $message) {
+    public function __construct(PDO $conn, $url) {
         $this->conn = $conn;
         $this->url = $url;
-        $this->message = $message;
+        $this->message = new Message();
     }
 
     public function buildUser($data) {
