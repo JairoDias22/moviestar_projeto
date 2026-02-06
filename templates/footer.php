@@ -13,9 +13,9 @@
       </ul>
     </div>
     <div id="footer-links-container">
-        <li class="footer-link"><a class="footer-links" href="newmovie.php">Adicionar filme</a></li>
-        <li class="footer-link"><a class="footer-links" href="riview_process.php">Adicionar crítica</a></li>
-        <li class="footer-link"><a class="footer-links" href="profile.php">Entrar / Registrar</a></li>
+        <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>newmovie.php">Adicionar filme</a></li>
+        <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>riview_process.php">Adicionar crítica</a></li>
+        <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>profile.php">Entrar / Registrar</a></li>
       </ul>
     </div>
     <p class="footer-txt"> &copy; 2026 MovieStar</p>
