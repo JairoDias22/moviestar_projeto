@@ -14,7 +14,7 @@
     $message->clearMessage();
   }
 
-  $userDao = new UserDAO($conn, $BASE_URL, $message);
+  $userDao = new UserDAO($conn, $BASE_URL,$message);
 
   $userData = $userDao->verifyToken(false);
 
@@ -68,7 +68,12 @@
   </nav>
   
 </header>
-
+         <!---->
+<?php if(!empty($flassMessage["msg"])): ?>
+  <div class="msg-container">
+    <p class="msg <?= $flassMessage["type"] ?>"><?= $flassMessage["msg"] ?></p>
+  </div>
+<?php endif; ?>
 <style>
   * {
   margin: 0;

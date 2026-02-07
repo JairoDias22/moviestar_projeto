@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../models/User.php");
 // O __DIR__ garante que o PHP parta da pasta 'dao'
 require_once(__DIR__ . "/../models/Message.php");
 
-class UserDAO implements UserDAOInterface {
+class UserDAO {
 
     private $conn;
     private $url;
@@ -45,23 +45,29 @@ class UserDAO implements UserDAOInterface {
         $stmt->execute();
         
         if($authUser){
-
-            $this->setTokenToSession($user->token);
+                                                    // É passado o false para não ocorrer conflito com header
+            $this->setTokenToSession($user->token, false);
 
             $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
         }
     }
 
     public function update(User $user, $redirect = true) {
-        $stmt= $this->conn->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(":email", $user->email);
-        $stmt->execute();
+        $stmt = $this->conn->prepare("UPDATE users SET name = :name, lastname = :lastname, email = :email, image = :image, bio = :bio, token = :token WHERE id = :id");
 
-        if($stmt->rowCount() > 0) {
-            // Redireciona para o perfil do usuario
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->buildUser($data);
-        }
+    $stmt->bindParam(":name", $user->name);
+    $stmt->bindParam(":lastname", $user->lastname);
+    $stmt->bindParam(":email", $user->email);
+    $stmt->bindParam(":image", $user->image);
+    $stmt->bindParam(":bio", $user->bio);
+    $stmt->bindParam(":token", $user->token);
+    $stmt->bindParam(":id", $user->id);
+
+    $stmt->execute();
+
+    if($redirect) {
+        $this->message->setMessage("Dados atualizados com sucesso!", "success", "editprofile.php");
+    }
         
     }
 
@@ -90,27 +96,60 @@ class UserDAO implements UserDAOInterface {
     $_SESSION["token"] = $token;
     
         if($redirect) {
-            // Redireciona para o perfil do usuario
-            $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "editprofile.php");
+            // Redireciona para o perfil do usuario direto 
+            $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
         
         }
 
     }
 
     public function authenticateUser($email, $password) {
+
+        // usamos prepare para não dar sql injection
+         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+         $stmt->bindParam(":email", $email);
+         $stmt->execute();   
+         
+        // Verifica se o usuário existe
+
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Compara a senha digitada com o hash do banco de dados
+        // Nota: A senha no banco DEVE ter sido criada com password_hash()
+        if (password_verify($password, $user['password'])) {
+            // Login sucesso: você pode retornar o objeto usuário ou true
+            return $user;
+        }
+    }
+
+        // Caso o e-mail não exista ou a senha esteja incorreta
         return false;
     }
 
     public function findByEmail($email) {
+        
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+
+        $stmt->bindParam(":email",$email);
+        $stmt->execute(); // preparando query 
+
+        if($stmt->rowCount() > 0){
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->buildUser($data);
+        }
+
+        /// caso o usuário não exista 
         return false;
     }
+    
 
     public function findById($id) {
 
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = :id");
 
         $stmt->bindParam(":id",$id);
-        $stmt->execute();
+        $stmt->execute(); // preparando query 
 
         if($stmt->rowCount() > 0){
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -131,15 +170,19 @@ class UserDAO implements UserDAOInterface {
     }
 
     public function destroyToken() {
-        // Redirecionar e apresentar a mensagem de sucesso
-        $_SESSION["token"] = "token excluido";
-        header("Location :" . $this->$url. "index.php");
-    }
+        
+        // Remove o token da sessão
+        $_SESSION["token"] = "";
+
+    // Redirecionar e apresentar a mensagem de sucesso
+    $this->message->setMessage("Você fez logout com sucesso!", "success", "index.php");
+}
 
     public function changePassword(User $user) {
         // Redirecionar e apresentar a mensagem de sucesso
         $_SESSION["password"] = "Senha Alterada";
-        header("Location : " . $this->$url . "");
+        
+        $this->message->setMessage("Senha alterada com sucesso!", "sucess", "editprofile.php");
     }
 
 }
