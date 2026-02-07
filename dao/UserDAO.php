@@ -110,7 +110,7 @@ class UserDAO {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = :id");
 
         $stmt->bindParam(":id",$id);
-        $stmt->execute();
+        $stmt->execute(); // preparando query 
 
         if($stmt->rowCount() > 0){
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
