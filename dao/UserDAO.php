@@ -1,18 +1,18 @@
 <?php
+require_once(__DIR__ . "/../models/User.php");
+// O __DIR__ garante que o PHP parta da pasta 'dao'
+require_once(__DIR__ . "/../models/Message.php");
 
-require_once("models/User.php");
-require_once("models/Message.php");
-
-class UserDAO implements UserDAOInterface {
+class UserDAO {
 
     private $conn;
     private $url;
     private $message;
 
-    public function __construct(PDO $conn, $url) {
+    public function __construct(PDO $conn, $url, $message) {
         $this->conn = $conn;
         $this->url = $url;
-        $this->message = new Message($url);
+        $this->message = $message;
     }
 
     public function buildUser($data) {
@@ -28,39 +28,73 @@ class UserDAO implements UserDAOInterface {
         $user->bio = $data["bio"];
         $user->token = $data["token"];
 
-        return $user;
+        return $user; 
 
     }
 
     public function create(User $user, $authUser = false) {
         // Autenticar usuário, caso auth seja true
-        return true;
+        $stmt = $this->conn->prepare("INSERT INTO users(name, lastname, password, email,  token) VALUES(:name, :lastname, :password, :email, :token)");
+
+        $stmt->bindParam(":name", $user->name, PDO::PARAM_STR);
+        $stmt->bindParam(":lastname", $user->lastname);
+        $stmt->bindParam(":password", $user->password);
+        $stmt->bindParam(":email", $user->email);
+        $stmt->bindParam(":token", $user->token);
+
+        $stmt->execute();
+        
+        if($authUser){
+
+            $this->setTokenToSession($user->token);
+
+            $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
+        }
     }
 
     public function update(User $user, $redirect = true) {
-        if($redirect) {
+        $stmt= $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(":email", $user->email);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0) {
             // Redireciona para o perfil do usuario
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $this->buildUser($data);
         }
-        return true;
+        
     }
 
     public function verifyToken($protected = false) {
 
-        if($protected) {
-            // Redireciona usuário não autenticado
+         if(!empty($_SESSION["token"])) {
+            $token = $_SESSION["token"];
+            $user = $this->findByToken($token);
+
+        if($user) {
+            return $user; // Retorna o OBJETO User
+        } else if($protected) {
+            // Se for página protegida e não achar o user, manda pro auth
+            $this->message->setMessage("Faça a autenticação para acessar esta página!", "error", "index.php");
         }
-
-        return false;
-
+    } else if($protected) {
+        $this->message->setMessage("Faça a autenticação para acessar esta página!", "error", "index.php");
     }
+
+    return false; // Retorna FALSE se não estiver logado
+}
+
 
     public function setTokenToSession($token, $redirect = true) {
 
+    $_SESSION["token"] = $token;
+    
         if($redirect) {
             // Redireciona para o perfil do usuario
+            $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "editprofile.php");
+        
         }
 
-        return true;
     }
 
     public function authenticateUser($email, $password) {
@@ -68,25 +102,56 @@ class UserDAO implements UserDAOInterface {
     }
 
     public function findByEmail($email) {
-        return false;
+        
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+
+        $stmt->bindParam(":id",$email);
+        $stmt->execute(); // preparando query 
+
+        if($stmt->rowCount() > 0){
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->buildUser($data);
+        }
     }
+    
 
     public function findById($id) {
-        return false;
+
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = :id");
+
+        $stmt->bindParam(":id",$id);
+        $stmt->execute(); // preparando query 
+
+        if($stmt->rowCount() > 0){
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->buildUser($data);
+        }
     }
 
     public function findByToken($token) {
-        return false;
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE token = :token");
+        $stmt->bindParam(":token", $token);
+        $stmt->execute();
+        
+         if($stmt->rowCount() > 0) {
+            // Redireciona para o perfil do usuario
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $this->buildUser($data);
+        }
     }
 
     public function destroyToken() {
         // Redirecionar e apresentar a mensagem de sucesso
-        return true;
+        $_SESSION["token"] = "token excluido";
+        
+        $this->message->setMessage("Token excluído com sucesso", "sucess", "index.php");
     }
 
     public function changePassword(User $user) {
         // Redirecionar e apresentar a mensagem de sucesso
-        return true;
+        $_SESSION["password"] = "Senha Alterada";
+        
+        $this->message->setMessage("Senha alterada com sucesso!", "sucess", "editprofile.php");
     }
 
 }
