@@ -102,8 +102,18 @@ class UserDAO {
     }
 
     public function findByEmail($email) {
-        return false;
+        
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+
+        $stmt->bindParam(":id",$email);
+        $stmt->execute(); // preparando query 
+
+        if($stmt->rowCount() > 0){
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->buildUser($data);
+        }
     }
+    
 
     public function findById($id) {
 
