@@ -98,6 +98,26 @@ class UserDAO {
     }
 
     public function authenticateUser($email, $password) {
+
+        // usamos prepare para não dar sql injection
+         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
+         $stmt->bindParam(":email", $email);
+         $stmt->execute();   
+         
+        // Verifica se o usuário existe
+
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Compara a senha digitada com o hash do banco de dados
+        // Nota: A senha no banco DEVE ter sido criada com password_hash()
+        if (password_verify($password, $user['password'])) {
+            // Login sucesso: você pode retornar o objeto usuário ou true
+            return $user;
+        }
+    }
+
+        // Caso o e-mail não exista ou a senha esteja incorreta
         return false;
     }
 
@@ -105,13 +125,16 @@ class UserDAO {
         
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
 
-        $stmt->bindParam(":id",$email);
+        $stmt->bindParam(":email",$email);
         $stmt->execute(); // preparando query 
 
         if($stmt->rowCount() > 0){
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         return $this->buildUser($data);
         }
+
+        /// caso o usuário não exista 
+        return false;
     }
     
 

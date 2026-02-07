@@ -19,7 +19,7 @@
   $message = new Message($BASE_URL);
 
   // Instancia o DAO do usuário com a conexão e a URL base
-  $userDao = new UserDAO($conn, $BASE_URL);
+  $userDao = new UserDAO($conn, $BASE_URL, $message);
 
   // Resgata o tipo do formulário enviado via POST (login ou register)
   $type = filter_input(INPUT_POST, "type");

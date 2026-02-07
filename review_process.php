@@ -14,7 +14,7 @@ require_once("dao/ReviewDAO.php");
 
 // Instâncias das classes necessárias
 $message = new Message($BASE_URL); // Responsável por mostrar mensagens para o usuário
-$userDao = new UserDAO($conn, $BASE_URL); // Valida login e manipula dados de usuário
+$userDao = new UserDAO($conn, $BASE_URL, $message); // Valida login e manipula dados de usuário
 $movieDao = new MovieDAO($conn, $BASE_URL); // Busca informações de filmes
 $reviewDao = new ReviewDAO($conn, $BASE_URL); // Salva e manipula reviews
 
