@@ -45,23 +45,29 @@ class UserDAO {
         $stmt->execute();
         
         if($authUser){
-
-            $this->setTokenToSession($user->token);
+                                                    // É passado o false para não ocorrer conflito com header
+            $this->setTokenToSession($user->token, false);
 
             $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
         }
     }
 
     public function update(User $user, $redirect = true) {
-        $stmt= $this->conn->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(":email", $user->email);
-        $stmt->execute();
+        $stmt = $this->conn->prepare("UPDATE users SET name = :name, lastname = :lastname, email = :email, image = :image, bio = :bio, token = :token WHERE id = :id");
 
-        if($stmt->rowCount() > 0) {
-            // Redireciona para o perfil do usuario
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->buildUser($data);
-        }
+    $stmt->bindParam(":name", $user->name);
+    $stmt->bindParam(":lastname", $user->lastname);
+    $stmt->bindParam(":email", $user->email);
+    $stmt->bindParam(":image", $user->image);
+    $stmt->bindParam(":bio", $user->bio);
+    $stmt->bindParam(":token", $user->token);
+    $stmt->bindParam(":id", $user->id);
+
+    $stmt->execute();
+
+    if($redirect) {
+        $this->message->setMessage("Dados atualizados com sucesso!", "success", "editprofile.php");
+    }
         
     }
 
@@ -90,8 +96,8 @@ class UserDAO {
     $_SESSION["token"] = $token;
     
         if($redirect) {
-            // Redireciona para o perfil do usuario
-            $this->message->setMessage("Usuário cadastrado com sucesso!", "success", "editprofile.php");
+            // Redireciona para o perfil do usuario direto 
+            $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
         
         }
 
@@ -164,11 +170,13 @@ class UserDAO {
     }
 
     public function destroyToken() {
-        // Redirecionar e apresentar a mensagem de sucesso
-        $_SESSION["token"] = "token excluido";
         
-        $this->message->setMessage("Token excluído com sucesso", "sucess", "index.php");
-    }
+        // Remove o token da sessão
+        $_SESSION["token"] = "";
+
+    // Redirecionar e apresentar a mensagem de sucesso
+    $this->message->setMessage("Você fez logout com sucesso!", "success", "index.php");
+}
 
     public function changePassword(User $user) {
         // Redirecionar e apresentar a mensagem de sucesso
