@@ -1,11 +1,12 @@
 <?php
   require_once("templates/header.php");
+  
 ?>
   <div id="main-container" class="container-fluid">
     <div class="col-md-12">
       <div class="row" id="auth-row">
         <div class="col-md-4" id="login-container">
-          <h2>Entrar</h2>
+          <h2 id ="title_auth">Entrar</h2>
           <form action="<?= $BASE_URL ?>auth_process.php" method="POST">
             <input type="hidden" name="type" value="login">
             <div class="form-group">
@@ -16,11 +17,11 @@
               <label for="password">Senha:</label>
               <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
             </div>
-            <input type="submit" class="btn card-btn" value="Entrar">
+            <input type="submit" class="btn card-btn" id="btn_registrar" value="Entrar">
           </form>
         </div>
         <div class="col-md-4" id="register-container">
-          <h2>Criar Conta</h2>
+          <h2 id="h2_contact">Criar Conta</h2>
           <form action="<?= $BASE_URL ?>auth_process.php" method="POST">
             <input type="hidden" name="type" value="register">
             <div class="form-group">
@@ -43,7 +44,7 @@
               <label for="confirmpassword">Confirmação de senha:</label>
               <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirme sua senha">
             </div>
-            <input type="submit" class="btn card-btn" value="Registrar">
+            <input type="submit" class="btn card-btn" id="btn_registrar" value="Registrar">
           </form>
         </div>
       </div>

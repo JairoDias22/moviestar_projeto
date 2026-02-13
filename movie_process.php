@@ -15,7 +15,10 @@
   $type = filter_input(INPUT_POST, "type");
 
   // Resgata dados do usuário
-  $userData = $userDao->verifyToken();
+  
+  $userData = $userDao->verifyToken(true);
+
+  // $userData = $userDao->verifyToken();
 
   if($type === "create") {
 

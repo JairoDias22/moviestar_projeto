@@ -1,3 +1,5 @@
+
+/*novo navbar*/
 * {
   margin: 0;
   padding: 0;
@@ -17,8 +19,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 30px;
-  border-bottom: 1px solid #222;
+  padding: 1.8vh 3.8vh;
+  border-bottom: 0.15vh solid #222;
+  height: 7.7vh;
 }
 
 /* LOGO */
@@ -29,63 +32,428 @@ body {
 }
 
 #logo {
-  width: 40px;
-  margin-right: 10px;
+  width: 5.1vh;
+  margin-right: 1.3vh;
 }
 
 #moviestar-title {
-  font-size: 22px;
+  font-size: 2.8vh;
   font-weight: bold;
-  color: #fff;
+  color: #fff;  
 }
 
 /* BUSCA */
 #search-form {
   display: flex;
   align-items: center;
-  width: 45%;
+  width: 50%;
 }
 
 #search {
   width: 100%;
-  padding: 10px 14px;
-  border-radius: 4px 0 0 4px;
+  height: 5.1vh;
+  padding: 1.3vh 1.8vh;
+  border-radius: 0.5vh 0 0 0.5vh;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 1.8vh;
 }
 
 #search-form button {
-  background-color: #fff;
+  background-color: #ffffff;
+  height: 5.1vh;
   border: none;
-  padding: 10px 14px;
-  border-radius: 0 4px 4px 0;
+  padding: 1.3vh 1.8vh;
+  border-radius: 0 0.5vh 0.5vh 0;
   cursor: pointer;
+}
+
+#search-form :hover {
+  background-color: #f1f1f1;
 }
 
 /* MENU */
 .navbar-nav {
   list-style: none;
   display: flex;
-  align-items: center;
+  flex-direction: inherit;
 }
 
 .nav-item {
-  margin-left: 18px;
+  margin-left: 2.3vh;
+  display: inline-block;
 }
 
 .nav-link {
   color: #ddd;
   text-decoration: none;
-  font-size: 14px;
+  font-size: clamp(0.5rem, 1.2vw, 1rem);
   transition: 0.3s;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.bold:hover {
   color: #f5c518;
 }
 
 .nav-link.bold {
   font-weight: bold;
   color: #fff;
+}
+
+
+#search-form {
+  display: flex; /*ativa o flexbox */
+  align-items: center; /*alinha verticalmente */
+}
+
+#search {
+  flex: 1; /* input ocupa todo espaço disponível */
+  padding: 8px 12px; /* altura e espaçamento interno */
+  font-size: 16px;
+}
+
+#search-form button {
+  padding: 8px 12px; /* mesma altura que o input */
+  display: flex; /* centraliza ícone dentro do botão */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.bi{
+  color: #f5c518;
+}
+
+.btn {
+  margin: 1vh;
+}
+
+.d-grid{
+  margin-left: -3vh;
+}
+
+.card{
+  display: inline-block;
+  padding-left: 1vh;
+  margin: 2vh;
+  margin-left: 7vh;
+}
+
+.movie-card img {
+  height: 300px; /* altura fixa */
+  object-fit: contain; /* mostra a imagem inteira */
+  background-color: #000; /* preenche o espaço vazio */
+}
+
+.movie-card .card-title {
+  margin-top: 1.6vh;
+  letter-spacing: 0.05vh;
+}
+
+.movie-card {
+  box-shadow: 0 0.6vh 2vh #f5c518;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-0.5vh);
+  box-shadow: 0 1.5vh 4vh #f5c518;
+}
+
+.new-movie{
+  margin-left: 7vh;
+}
+
+
+.section-title {
+    border-left-width: 0.4vh; /* espessura da borda */
+    border-left-style: solid;
+    border-left-color: #ffc107; /* equivalente ao border-warning */
+    padding-left: 1vh; /* distância entre a borda e o texto */
+    height: 1.2em; /* altura da borda igual à linha de texto */
+}
+
+
+
+/*Style de adicionar filme*/
+/* 
+/*titulo e descrição*/
+.page-title{
+    font-size: 5vh;
+    font-weight: bold;
+    text-align: center;
+}
+
+.page-description{
+    font-size: 18px;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+/*botões*/
+.btn00{
+  background-color: #f5c518;
+  color: #000;
+  border: none;
+  border-radius: 0.5vh;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  width: 61vh;
+  text-align: center;
+  margin-bottom: 10vh;
+}
+
+.btn01{
+  background-color: #f5c518;
+  color: #000;
+  width: 8vh;
+  height:3vh;
+  padding: 1vh;
+  font-size: 2vh;
+}
+
+.btn02{
+  background-color: #6e6e6e;
+  color: #1139be;
+  width: 8vh;
+  height:3vh;
+  padding: 1vh;
+  font-size: 2vh;
+}
+
+.bnt04{
+  height: 4.3vh;
+  width: 4.3vh;
+   margin-top: 0vh;
+}
+
+
+
+/*estrela de avaliação*/
+.bi{
+  color: #f5c518;
+  position: absolute;
+  margin-left: -2vh;
+  margin-top: 0.2vh;
+ 
+}
+
+/*ícone de busca*/
+.bi-search{
+  color: #000;
+  text-align: center;
+  margin-top: -0.5vh;
+  margin-left: -1vh;
+}
+/*título da página dashoard*/
+.section-title{
+  font-family: "Concert One", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 5vh;
+}
+/*título da página de adicionar*/
+.page-title{
+  font-family: "Concert One", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 5vh; 
+}
+
+
+/* FOOTER */
+  footer{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: clamp(1rem, 2vw, 1rem);
+    width: 100%;
+    align-items: center;
+    font-size: clamp(0.5rem, 1vw, 1rem);
+    color: white;
+    bottom: 0;
+}
+
+.social-container{
+    gap: clamp(1rem, 3vw, 1.8rem);
+    margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+}
+.fab{
+    font-size: 1.2rem;
+  }
+.social-item, .footer-link{
+    display: inline-block;
+    align-items: center;
+    
+}
+.footer-links, .fab{
+    padding: 10px;
+    color: white;
+}
+.footer-links-container{
+    gap: clamp(1.2rem, 4vw, 2rem);
+  }
+.footer-link :hover{
+    text-decoration: none;
+    color: #f5c518;
+}
+.social-item :hover{
+  background-color: #f5c518;
+  border-radius: 100%;
+}
+.footer-txt{
+  margin-top: 1.5%;
+}
+
+.container-fluid{
+  margin-top: 5vh;
+}
+
+.button{
+  margin-left: -0.3vh;
+  text-align: center;
+}
+
+       
+.btn05{ 
+  margin-left: 176vh;
+}
+
+.table thead th{
+  color: #ffffff;
+ border-top: none;
+}
+
+/* EDIT PROFILE PAGE */
+  .edit-profile-page{ 
+    margin-top: 1%;
+  }
+  #profile-image-container{
+    width: clamp(150px, 30vw, 175px);
+    height: clamp(150px, 30vw, 175px);
+    border: 3px solid #f5c518;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-left: 25%;
+  }
+  .page-description{
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  .card-btn{
+    background-color: #f5c518;
+  }
+
+/* FOOTER */
+  footer{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: clamp(1rem, 2vw, 2rem);
+    width: 100%;
+    align-items: center;
+    font-size: clamp(0.5rem, 1vw, 1rem);
+    color: white;
+    bottom: 0;
+}
+
+.social-container{
+    gap: clamp(1rem, 3vw, 1.8rem);
+    margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+}
+.fab{
+    font-size: 1.2rem;
+  }
+.social-item, .footer-link{
+    display: inline-block;
+    align-items: center;
+    
+}
+.footer-links, .fab{
+    padding: 10px;
+    color: white;
+}
+.footer-links-container{
+    gap: clamp(1.2rem, 4vw, 2rem);
+  }
+.footer-link :hover{
+    text-decoration: none;
+    color: #f5c518;
+}
+.social-item :hover{
+  background-color: #f5c518;
+  border-radius: 100%;
+}
+.footer-txt{
+  margin-top: 1.5%;
+}
+ul{
+  padding-inline-start: 0px;
+}
+.container-fluid{
+  min-height: 70vh;
+}
+
+
+
+/* CADU ESTYLE - MOVIE.php*/
+
+/* .page-title{
+  font-family: "Concert One", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 5vh;
+
+  ja conectada com todas as fontes
+} */
+
+/*Linha amarela horizontal*/
+.page-title{
+   border-bottom: 0.05em solid #ffc107;
+   padding-bottom: 0.05em;
+   margin-bottom: 2vh;
+}
+
+/*Detalhes, duração etc. abaixo titulo*/
+.movie-details{
+  margin-top: 1vh;
+  font-size: 0.95em;
+  color: #ccc;
+}
+
+.movie-details span{
+  margin-right: 0.8em;
+}
+
+.movie-details .pipe{
+  color: #666;
+  margin-right: 0.8em;
+}
+
+.movie-details i{
+  color: #ffc107;
+  margin-right: 0.03em;
+}
+
+.movie-details{
+  margin-left: 30vh;
+}
+
+
+iframe{
+  margin-left: 20vh;
+}
+
+.description{
+  margin-left: 35vh;
+}
+
+/* 
+Avaliações */
+
+
+
+.movie-image-container{
+  height: 50vh;
 }
