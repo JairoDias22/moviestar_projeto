@@ -1,7 +1,7 @@
 <?php
   require_once("templates/header.php");
 
-  // Verifica se usuário está autenticado
+  // Models e DAOs necessários
   require_once("models/User.php");
   require_once("dao/UserDAO.php");
   require_once("dao/MovieDAO.php");
@@ -10,92 +10,95 @@
   $user = new User();
 $userDao = new UserDAO($conn, $BASE_URL, $message);
 
-$movieDao = new MovieDAO($conn, $BASE_URL, $message);
+  // Recebe o ID do usuário pela URL
+  $id = filter_input(INPUT_GET, "id");
 
-// Receber id do usuário
-$id = filter_input(INPUT_GET, "id");
+  // Se não vier ID na URL
+  if(empty($id)) {
 
-// Garantir que a variável exista
-$userData = null;
-
-if (empty($id)) {
-
-    if (!empty($userData) && is_object($userData)) {
-
-        $id = $userData->id;
-
+    if(!empty($userData)) {
+      $id = $userData->id;
     } else {
-
-        $message->setMessage("Usuário não encontrado!", "error", "index.php");
-        exit;
-
+      $message->setMessage("Usuário não encontrado!", "error", "index.php");
     }
 
 } else {
 
+    // Busca usuário pelo ID
     $userData = $userDao->findById($id);
 
-    // Se não encontrar usuário
-    if (!$userData || !is_object($userData)) {
-        $message->setMessage("Usuário não encontrado!", "error", "index.php");
-        exit;
+    if(!$userData) {
+      $message->setMessage("Usuário não encontrado!", "error", "index.php");
     }
 
-}
-
-$fullName = null;
-
-if ($userData && is_object($userData)) {
-
-    $fullName = $user->getFullName($userData);
-
-    if (empty($userData->image)) {
-        $userData->image = "user.png";
-    }
-
-} else {
-
+  }
+  // Verifica se o usuário existe antes de usar
+  if(!$userData) {
     $message->setMessage("Usuário não encontrado!", "error", "index.php");
     exit;
+  }
 
-}
+  // Nome completo
+  $fullName = $user->getFullName($userData);
 
+  // Imagem padrão caso não tenha foto
+  if(empty($userData->image)) {
+    $userData->image = "user.png";
+  }
 
-  // Filmes que o usuário adicionou
+  // Filmes adicionados pelo usuário
   $userMovies = $movieDao->getMoviesByUserId($id);
-
 ?>
-  <div id="main-container" class="container-fluid">
-    <div class="col-md-8 offset-md-2">
-      <div class="row profile-container">
-        <div class="col-md-12 about-container">
-          <h1 class="page-title"><?= $fullName ?></h1>
-          <div id="profile-image-container" class="profile-image" style="background-image: url('<?= $BASE_URL ?>/img/users/<?= $userData[image] ?>')"></div>
-          <h3 class="about-title">Sobre:</h3>
-          <!--Verificar se a bio do objeto $userData esta vazia-->
-          <?php if(!empty($userData->bio)): ?>
-            <p class="profile-description"><?= $userData->bio ?></p>
-          <?php else: ?>
-            <p class="profile-description">O usuário ainda não escreveu nada aqui...</p>
-            <?php endif; ?>
-  
+
+<div id="main-container" class="container-fluid">
+  <div class="col-md-8 offset-md-2">
+    <div class="row profile-container">
+
+      <!-- INFORMAÇÕES DO USUÁRIO -->
+      <div class="col-md-12 about-container">
+        <h1 class="page-title"><?= $fullName ?></h1>
+
+        <div 
+          id="profile-image-container" 
+          class="profile-image"
+          style="background-image: url('<?= $BASE_URL ?>img/users/<?= $userData->image ?>')">
         </div>
-        <div class="col-md-12 added-movies-container">
-          <h3>Filmes que enviou:</h3>
-          <div class="movies-container">
-          <!--Verifica se o array $userMovies tem algum filme-->
-             <?php if(!empty($userMovies)): ?>
-              <?php foreach($userMovies as $movie): ?>
+
+        <h3 class="about-title">Sobre:</h3>
+
+        <?php if(!empty($userData->bio)): ?>
+          <p class="profile-description"><?= $userData->bio ?></p>
+        <?php else: ?>
+          <p class="profile-description">
+            O usuário ainda não escreveu nada aqui...
+          </p>
+        <?php endif; ?>
+
+      </div>
+
+      <!-- FILMES DO USUÁRIO -->
+      <div class="col-md-12 added-movies-container">
+        <h3>Filmes que enviou:</h3>
+
+        <div class="movies-container">
+
+          <?php if(count($userMovies) > 0): ?>
+
+            <?php foreach($userMovies as $movie): ?>
               <?php require("templates/movie_card.php"); ?>
             <?php endforeach; ?>
-            <?php else: ?>
-              <p class="empty-list">O usuário ainda não enviou filmes.</p>
-            <?php endif; ?>
-          </div>
+
+          <?php else: ?>
+            <p class="empty-list">O usuário ainda não enviou filmes.</p>
+          <?php endif; ?>
+
         </div>
       </div>
+
     </div>
   </div>
+</div>
+
 <?php
   require_once("templates/footer.php");
 ?>

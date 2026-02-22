@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ==========================================================
    RESET GLOBAL
    ==========================================================
@@ -53,6 +54,42 @@ body {
   display: flex;
   align-items: center;
   text-decoration: none; /* Remove sublinhado */
+=======
+/* /novo navbar/ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BODY */
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+/* NAVBAR */
+#main-navbar {
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8vh 3.8vh;
+  border-bottom: 0.15vh solid #222;
+  height: 7.7vh;
+}
+
+/* LOGO */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+>>>>>>> alex-estilizacao-css
 }
 
 #logo {
@@ -66,6 +103,7 @@ body {
   color: #fff;
 }
 
+<<<<<<< HEAD
 
 /* ==========================================================
    BARRA DE BUSCA
@@ -73,6 +111,12 @@ body {
    Campo de pesquisa de filmes.
    Também utiliza Flexbox para alinhar input + botão.
 ========================================================== */
+=======
+/* =====================================================
+   BUSCA
+===================================================== */
+
+>>>>>>> alex-estilizacao-css
 #search-form {
   display: flex;
   align-items: center;
@@ -81,9 +125,15 @@ body {
 
 #search {
   width: 100%;
+<<<<<<< HEAD
   height: 40px;
   padding: 10px 14px;
   border-radius: 4px 0 0 4px; /* Bordas arredondadas só do lado esquerdo */
+=======
+  height: 5.1vh;
+  padding: 1.3vh 1.8vh;
+  border-radius: 0.5vh 0 0 0.5vh;
+>>>>>>> alex-estilizacao-css
   border: none;
   outline: none;
   font-size: 1.8vh;
@@ -93,24 +143,41 @@ body {
   background-color: #ffffff;
   height: 5.1vh;
   border: none;
-  padding: 10px 14px;
-  border-radius: 0 4px 4px 0; /* Bordas arredondadas só do lado direito */
+  padding: 1.3vh 1.8vh;
+  border-radius: 0 0.5vh 0.5vh 0;
   cursor: pointer;
 }
 
-/* Efeito visual ao passar o mouse */
 #search-form :hover {
   background-color: #f1f1f1;
 }
 
+/* Repetição mantida */
+#search-form {
+  display: flex; /*ativa o flexbox */
+  align-items: center; /*alinha verticalmente */
+}
 
-/* ==========================================================
-   MENU DE NAVEGAÇÃO
-   ==========================================================
-   Lista horizontal com links principais do sistema.
-========================================================== */
+#search {
+  flex: 1; /* input ocupa todo espaço disponível */
+  padding: 8px 12px; /* altura e espaçamento interno */
+  font-size: 16px;
+}
+
+#search-form button {
+  padding: 8px 12px; /* mesma altura que o input */
+  display: flex; /* centraliza ícone dentro do botão */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
 .navbar-nav {
-  list-style: none; /* Remove bolinhas da lista */
+  list-style: none;
   display: flex;
   flex-direction: inherit;
 }
@@ -123,14 +190,13 @@ body {
 .nav-link {
   color: #ddd;
   text-decoration: none;
-  font-size: clamp(0.5rem, 1.2vw, 1rem); 
-  /* clamp permite responsividade automática */
-  transition: 0.3s; /* Animação suave */
+  font-size: clamp(0.5rem, 1.2vw, 1rem);
+  transition: 0.3s;
 }
 
 .nav-link:hover,
 .nav-link.bold:hover {
-  color: #f5c518; /* Amarelo destaque (estilo IMDb) */
+  color: #f5c518;
 }
 
 .nav-link.bold {
@@ -139,168 +205,574 @@ body {
 }
 
 
-/* ==========================================================
-   PÁGINA DO FILME (movie.php)
-   ==========================================================
-   Estilizações relacionadas à visualização do filme
-   e sistema de avaliações.
-========================================================== */
+/* =========================================
+   FLASH MESSAGE
+========================================= */
 
-/* Vídeo incorporado */
-.movie-container iframe {
-  max-width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-/* Linha amarela separando avaliações */
-#reviews-title {
-  border-top: 2px solid #f5c518;
-  padding-top: 20px;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-
-/* ==========================================================
-   FORMULÁRIO DE AVALIAÇÃO
-   ==========================================================
-   Área onde o usuário envia nota e comentário.
-========================================================== */
-#review-form-container {
-  background-color: #2f2f2f;
-  padding: 25px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-#review-form-container h4 {
-  color: #fff;
-  margin-bottom: 5px;
-}
-
-#review-form-container .page-description {
-  color: #ccc;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-#review-form-container label {
-  font-weight: bold;
-  color: #fff;
-}
-
-/* Campos de seleção e texto */
-#review-form-container select,
-#review-form-container textarea {
-  background-color: #fff;
-  color: #000;
-  border-radius: 5px;
-}
-
-
-/* Botão principal de envio */
-#review-form-container .card-btn {
-  background-color: #f5c518;
-  color: #000;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-/* Efeito hover do botão */
-#review-form-container .card-btn:hover {
-  background-color: #d4aa11;
-}
-
-
-/* ==========================================================
-   ESTADOS ESPECIAIS
-========================================================== */
-
-/* Texto exibido quando não há comentários */
-.empty-list {
+.msg-container {
+  width: 60%;
+  margin: 2vh auto;
+  padding: 2vh;
+  border-radius: 1vh;
   text-align: center;
-  color: #ccc;
-  margin-top: 20px;
-  font-size: 15px;
+  font-weight: bold;
+  animation: fadeIn 0.4s ease-in-out;
+  border: 2px solid #f5c518;
+  background: linear-gradient(145deg, #1f1f1f, #2b2b2b);
+  box-shadow: 0 0 15px rgba(245, 197, 24, 0.3);
 }
 
-/* Imagem circular do usuário nas avaliações */
-.profile-image-container {
-  width: 50px;
-  height: 50px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
+.msg-text {
+  margin: 0;
+  font-size: 1rem;
 }
 
-
-/* ==========================================================
-   IMAGEM PRINCIPAL DO FILME
-========================================================== */
-.movie-image-container {
-  width: 100%;
-  height: 420px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 12px;
+/* Tipos de mensagem */
+.msg-container.success {
+  border-color: #28a745;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.4);
 }
 
-
-/* ==========================================================
-   FOOTER (Rodapé do sistema)
-========================================================== */
-footer {
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: clamp(1rem, 2vw, 1rem);
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.msg-container.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
 }
 
-
-/* Container de redes sociais */
-.social-container {
-  gap: clamp(1rem, 3vw, 1.8rem);
-  margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+.msg-container.warning {
+  border-color: #f5c518;
 }
 
-/* Ícones */
-.fab {
-  font-size: 1.2rem;
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+/* =====================================================
+   ÍCONES E UTILITÁRIOS
+===================================================== */
 
-.social-item,
-.footer-link {
-  display: inline-block;
-  align-items: center;
-}
-
-.footer-links,
-.fab {
-  padding: 10px;
-  color: white;
-}
-
-.footer-links-container {
-  gap: clamp(1.2rem, 4vw, 2rem);
-}
-
-/* Hover links */
-.footer-link:hover {
-  text-decoration: none;
+.bi {
   color: #f5c518;
 }
 
-/* Hover redes sociais */
-.social-item:hover {
+.btn {
+  margin: 1vh;
+}
+
+.d-grid {
+  margin-left: -3vh;
+}
+
+.new-movie {
+  margin-left: 7vh;
+}
+
+/* =====================================================
+   TELA INICIAL // STYLE: ALEX
+===================================================== */
+
+.card {
+  display: inline-block;
+  padding: 1vh;          /* padding uniforme */
+  margin: 2vh 2vh 2vh 7vh; /* mantém margem esquerda maior */
+  color: #ffffff;
+  background-color: #000;
+  width: 14rem;           /* largura fixa do card para alinhamento */
+  vertical-align: top;    /* garante que os cards fiquem alinhados na mesma linha */
+  border-radius: 0.5rem;  /* bordas arredondadas (opcional) */
+  overflow: hidden;       /* evita que conteúdo ultrapasse o card */
+}
+
+.card img {
+  width: 100%;            /* ocupa toda a largura do card */
+  height: 300px;          /* altura fixa para todas as imagens */
+  object-fit: contain;      /* mantém proporção sem distorcer */
+  display: block;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column; /* organiza título, nota e botões em coluna */
+  justify-content: space-between; /* empurra botões para baixo */
+  width: 16vw;
+}
+
+.movie-card {
+  width: 18vw;        /* largura proporcional à tela */
+  
+}
+
+.movie-card .card-title {
+  margin-top: 1.6vh;
+  letter-spacing: 0.05vh;
+  color: #ffffff;
+}
+
+.movie-card {
+  box-shadow: 0 0.6vh 2vh #f5c518;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-0.5vh);
+  box-shadow: 0 1.5vh 4vh #f5c518;
+}
+
+/* Estrela de avaliação */
+.fas {
+  color: #f5c518;
+}
+
+.section-title {
+  border-left-width: 0.4vh;
+  border-left-style: solid;
+  border-left-color: #ffc107;
+  padding-left: 1vh;
+  height: 1.2em;
+}
+
+/* =====================================================
+   STYLE DE ADICIONAR FILME - LAURA
+===================================================== */
+
+.page-title {
+  font-size: 5vh;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page-description {
+  font-size: 18px;
+  margin-bottom: 5vh;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centraliza os inputs */
+}
+
+
+/* Botões */
+.btn00 {
+  background-color: #f5c518;
+  color: #000;
+  border: none;
+  border-radius: 0.5vh;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  width: 61vh;
+  text-align: center;
+  margin-bottom: 10vh;
+}
+
+.btn01 {
+  background-color: #f5c518;
+  color: #000;
+  width: 8vh;
+  height: 3vh;
+  padding: 1vh;
+  font-size: 2vh;
+}
+
+.btn02 {
+  background-color: #6e6e6e;
+  color: #1139be;
+  width: 8vh;
+  height: 3vh;
+  padding: 1vh;
+  font-size: 2vh;
+}
+
+.bnt04 {
+  height: 4.3vh;
+  width: 4.3vh;
+  margin-top: 0vh;
+}
+
+.bt {
+  margin-left: -1vh;
+}
+
+/* =====================================================
+   ÍCONES ESPECÍFICOS
+===================================================== */
+
+.bi {
+  color: #f5c518;
+  position: absolute;
+  margin-left: -2vh;
+  margin-top: 0.2vh;
+}
+
+.bi-search {
+  color: #000;
+  text-align: center;
+  margin-top: -0.5vh;
+  margin-left: -1vh;
+}
+
+.bi-plus-square {
+  margin-left: -3vh;
+}
+
+.cd {
+  margin-left: -0.1vh;
+
+}
+
+/* 
+
+/*título da página dashoard*/
+.section-title{
+  font-family: "Concert One", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 5vh;
+}
+/*título da página de adicionar*/
+.page-title{
+  font-family: "Concert One", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 5vh; 
+}
+
+/* Icones */
+.action-buttons {
+  display: flex;
+  margin-left: -20vh;
+  align-items: center;
+}
+
+.action-buttons form {
+  margin: 0;
+}
+
+.edit-btn, .delete-btn {
+  padding: 1vh 2vh;
+  border-radius: 1vh;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Editar */
+.edit-btn { 
+  background-color: #ffc107;
+  color: #000;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Deletar */
+.delete-btn {
+  margin-right: -20vh;
+  margin-left: 2vh;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* FOOTER */
+  footer{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: clamp(1rem, 2vw, 1rem);
+    width: 100%;
+    align-items: center;
+    font-size: clamp(0.5rem, 1vw, 1rem);
+    color: white;
+    bottom: 0;
+}
+
+.social-container{
+    gap: clamp(1rem, 3vw, 1.8rem);
+    margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+}
+.fab{
+    font-size: 1.2rem;
+  }
+.social-item, .footer-link{
+    display: inline-block;
+    align-items: center;
+    
+}
+.footer-links, .fab{
+    padding: 10px;
+    color: white;
+}
+.footer-links-container{
+    gap: clamp(1.2rem, 4vw, 2rem);
+  }
+.footer-link :hover{
+    text-decoration: none;
+    color: #f5c518;
+}
+.social-item :hover{
   background-color: #f5c518;
   border-radius: 100%;
+}
+.footer-txt{
+  margin-top: 1.5%;
+}
+
+.container-fluid{
+  margin-top: 5vh;
+}
+
+.button{
+  margin-left: -0.3vh;
+  text-align: center;
+}
+
+.fa-times {
+  color: #0d6efd;
+}
+
+.add{
+ 
+  padding: auto;
+  left: 85%;
+}
+       
+.btn05{ 
+  margin-left: 176vh;
+}
+
+.table thead th{
+  color: #ffffff;
+ border-top: none;
+}
+
+/* EDIT PROFILE PAGE */
+  .edit-profile-page{ 
+    margin-top: 1%;
+  }
+ #profile-image-container{
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+
+  background-size: cover;       /* faz a imagem preencher */
+  background-position: center;  /* centraliza o rosto */
+  background-repeat: no-repeat;
+
+  border: 3px solid #f5c518;    /* opcional (fica bonito estilo IMDb) */
+}
+  .page-description{
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  .card-btn{
+    background-color: #f5c518;
+  }
+
+  
+/* CADU ESTYLE - MOVIE.php*/
+
+/*Linha amarela horizontal*/
+.page-title{
+   border-bottom: 0.05em solid #ffc107;
+   padding-bottom: 0.05em;
+   margin-bottom: 2vh;
+   margin-left: 2vh;
+   width: 50vhvh;
+}
+
+/*Detalhes, duração etc. abaixo titulo*/
+
+.movie-details{
+  margin-top: 1vh;
+  font-size: 0.95em;
+  color: #ccc;
+}
+.movie-image-container {
+  margin-left: 20vh;
+  margin-top: 10vh;
+}
+
+.movie-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* corta proporcionalmente */
+
+}
+
+.movie-details span{
+  margin-right: 0.8em;
+}
+
+.movie-details .pipe{
+  color: #666;
+  margin-right: 0.9em;
+}
+
+.movie-details i{
+  
+  color: #ffc107;
+  margin-right: 0.03em;
+}
+
+.movie-details{
+  margin-left: 35vh;
+}
+
+/* Trailer do filme */
+iframe{
+  margin-left: 7vh;
+}
+
+.description{
+  text-align: center;
+}
+
+.movie-image-container{
+  margin-left: 10vh;
+  margin-top: 15vh;
+  width: 43vh;
+  height: 52vh
+}
+
+/* Editar o filme */
+
+.edit-image-container{
+ margin-left: 10vh;
+  margin-top: 15vh;
+  width: 40vh;
+  height: 52vh
+}
+
+/* avaliações */
+
+/* CARD DO FORM */
+.review-card {
+  margin-left: 25vh;
+  background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+  padding: 2vh;
+  border-radius: 1vh;
+  margin-bottom: 5vh;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  width: 170vh;
+}
+
+.review-card h4 {
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+
+.profile-image-container {
+  width: 60px;
+  height: 60px;          /* ← ESSENCIAL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+.review-card p {
+  color: #bbb;
+  margin-bottom: 2vh;
+}movie-image-container
+
+/* SELECT */
+#rating {
+  width: 80vh;
+  padding: 1vh;
+  border-radius: 1vh;
+  border: none; 
+  margin-top: 1vh;
+  margin-bottom: 3vh;
+}
+
+/* TEXTAREA */
+#review {
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  color: #fff;
+  width: 80vh;
+  border-radius: 2vh;
+  padding: 2vh;
+}
+
+
+/* BOTÃO */
+.review-btn {
+  background-color: #f5c518;
+  color: #000;
+  font-weight: bold;
+  padding: 1vh 2vh;
+  border: none;
+  border-radius: 1vh;
+  transition: 0.3s;
+}
+
+/* TITULO AVALIAÇÃO */
+#reviews-title{
+  border-top: 0.1em solid #ffc107;
+  padding-top: 0.7em;
+  margin-top: 2vh;
+  margin-left: 25vh;
+  width: 180vh;
+}
+
+/* COMENTARIO : Enzo*/
+
+
+#h2_cont  act{
+  border-bottom: 0.1vh solid #f5c518;
+  width: 33%;
+  margin-left:25%;
+  text-align: center;
+
+}
+
+#login-container{
+  margin-left: 15%;
+  margin-top:2% ;
+}
+
+#register-container{
+  margin-left: 5%;
+  margin-top: 2%;
+
+}
+.author-name{
+  margin-top: 5vh;
+  font-size: 3vh;
+}
+.form-control{
+  width: 80%;
+  margin-bottom:5%;
+}
+
+.form-control1{
+ width: 80%;
+ height: 4vh;
+ display: block;
+ margin-bottom:5%;
+}
+#title_auth{
+    border-bottom: 0.1vh solid #f5c518;
+    text-align: center;
+    width: 20%;
+    margin-left: 30%;
+}
+#btn_registrar{
+  background-color: #f5c518;
+  width: 80%;
 }

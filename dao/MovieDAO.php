@@ -173,14 +173,6 @@ class MovieDAO {
 
 public function destroy($id) {
 
-<<<<<<< HEAD
-        $stmt = $this->conn->prepare("DELETE FROM movies WHERE id = :id");
-        
-        $stmt->bindParam(":id", $id);
-        
-        $stmt->execute();
-    }
-=======
     // Apaga as reviews do filme
     $stmt = $this->conn->prepare("DELETE FROM reviews WHERE movies_id = :id");
     $stmt->bindParam(":id", $id);
@@ -191,5 +183,4 @@ public function destroy($id) {
     $stmt->bindParam(":id", $id);
     $stmt->execute();
 }
->>>>>>> 1b5e252fa405fc9405532c030444a916814c2cb7
 }

@@ -5,17 +5,9 @@ if(empty($movie->image)) {
 }
 ?>
 <div class="card movie-card">
-<<<<<<< HEAD
-
-  <!-- Imagem do filme como background -->
-  <div class="card-img-top" 
-       style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')">
-  </div>
-=======
 <img class="card-img-top" 
      src="<?= $BASE_URL ?>img/movies/<?= $movie->image ?>" 
      alt="<?= $movie->title ?>">
->>>>>>> 1b5e252fa405fc9405532c030444a916814c2cb7
 
   <div class="card-body">
 

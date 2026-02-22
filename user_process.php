@@ -17,6 +17,12 @@ if($type === "update") {
 
   // Resgata dados do usuário
   $userData = $userDao->verifyToken();
+  // salvar dados antigos para comparação
+  $oldName = $userData->name;
+  $oldLastname = $userData->lastname;
+  $oldEmail = $userData->email;
+  $oldBio = $userData->bio;
+  $oldImage = $userData->image;
 
   // Receber dados do post
   $name = filter_input(INPUT_POST, "name");
@@ -24,12 +30,42 @@ if($type === "update") {
   $email = filter_input(INPUT_POST, "email");
   $bio = filter_input(INPUT_POST, "bio");
 
-  // Atualizar dados
-  $userData->name = $name;
-  $userData->lastname = $lastname;
-  $userData->email = $email;
-  $userData->bio = $bio;
+  // VERIFICAR SE EMAIL JÁ EXISTE
+  $userByEmail = $userDao->findByEmail($email);
 
+  if($userByEmail && $userByEmail->id != $userData->id){
+    $message->setMessage("E-mail já está em uso!", "error", "back");
+    exit;
+  }
+
+  // verificar se imagem foi enviada
+  $imageChanged = (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"]));
+
+  // verificar se nada mudou
+  if(
+    $name === $oldName &&
+    $lastname === $oldLastname &&
+    $email === $oldEmail &&
+    $bio === $oldBio &&
+    !$imageChanged
+  ){
+    $message->setMessage("Nenhum dado foi alterado!", "error", "back");
+    exit;
+  }
+
+  // Atualizar dados
+  if(empty($name) || empty($lastname) || empty($email)){
+
+    $message->setMessage("Preencha nome, sobrenome e email!", "error", "back");
+
+  } else {
+
+    $userData->name = $name;
+    $userData->lastname = $lastname;
+    $userData->email = $email;
+    $userData->bio = $bio;
+
+  }
   // Upload da imagem
   if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
 
@@ -61,6 +97,7 @@ if($type === "update") {
 
     } else {
       $message->setMessage("Tipo inválido de imagem, use JPG ou PNG!", "error", "back");
+       exit;
     }
   }
 
@@ -77,7 +114,7 @@ if($type === "update") {
   $userData = $userDao->verifyToken();
   $id = $userData->id;
 
-  if($password == $confirmpassword) {
+  if(!empty($password) && $password === $confirmpassword) {
 
     $user = new User();
     $finalPassword = $user->generatePassword($password);

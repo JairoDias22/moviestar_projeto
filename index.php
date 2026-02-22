@@ -3,6 +3,19 @@
   // Incluir o cabeçalho
   require_once("templates/header.php");
 
+ // Mensagem de alerta Caso o usuario tentar adicionar uma critica
+if(isset($_GET["action"])){
+
+  if($_GET["action"] === "review"){
+    $message->setMessage(
+      "Por favor, selecione o filme para avaliar",
+      "success",
+      "index.php"
+    );
+  }
+
+}
+
   // Incluir o DAO dos filmes
   require_once("dao/MovieDAO.php");
 

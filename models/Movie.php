@@ -3,14 +3,15 @@
 // Classe que representa um filme
 class Movie {
 
-    public $id;          // ID do filme no banco
-    public $title;       // Título do filme
-    public $description; // Descrição do filme
-    public $image;       // Nome da imagem do filme
-    public $trailer;     // Link do trailer
-    public $category;    // Categoria do filme
-    public $length;      // Duração do filme
-    public $users_id;    // ID do usuário que cadastrou o filme
+    public $id;
+    public $title;
+    public $description;
+    public $image;
+    public $trailer;
+    public $category;
+    public $length;
+    public $users_id;
+    public $rating;
 
     // Gera um nome aleatório para a imagem
     public function imageGenerateName() {
