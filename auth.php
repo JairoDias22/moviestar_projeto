@@ -211,10 +211,6 @@
 </div>
 
 <?php
-<<<<<<< HEAD
-require_once("templates/footer.php"); // Footer do site
-=======
   // Inclui o footer padrão do site
   require_once("templates/footer.php");
->>>>>>> alex-estilizacao-css
 ?>

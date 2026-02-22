@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <footer id="footer">
 
     <!-- Redes sociais -->
@@ -18,22 +17,10 @@
 
     <!-- Links úteis do site -->
     <div id="footer-links-container">
-<<<<<<< HEAD
-        <li class="footer-link">
-            <a class="footer-links" href="<?= $BASE_URL ?>newmovie.php">Adicionar filme</a>
-        </li>
-        <li class="footer-link">
-            <a class="footer-links" href="<?= $BASE_URL ?>review_process.php">Adicionar crítica</a>
-        </li>
-        <li class="footer-link">
-            <a class="footer-links" href="<?= $BASE_URL ?>auth.php">Entrar / Registrar</a>
-        </li>
-=======
         <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>newmovie.php">Adicionar filme</a></li>
         <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>">Adicionar crítica</a></li>
         <li class="footer-link"><a class="footer-links" href="<?= $BASE_URL ?>auth.php">Entrar / Registrar</a></li>
       </ul>
->>>>>>> 1b5e252fa405fc9405532c030444a916814c2cb7
     </div>
 
     <!-- Texto de copyright -->
@@ -51,53 +38,3 @@
 
 <!-- CSS do projeto -->
 <link rel="stylesheet" href="<?= $BASE_URL ?>css/styles.css">
-=======
-<footer id="footer"> 
-  <div id="social-container">
-    <ul>
-      <li class="social-item">
-        <a class="social-icons" href="#"><i class="fab fa-facebook"></i></a>
-      </li>
-      <li class="social-item">
-        <a class="social-icons" href="#"><i class="fab fa-instagram"></i></a>
-      </li>
-      <li class="social-item">
-        <a class="social-icons" href="#"><i class="fab fa-youtube"></i></a>
-      </li>
-    </ul>
-  </div>
-
-  <div id="footer-links-container">
-    <ul>
-
-      <!-- Adicionar Filme -->
-      <li class="footer-link">
-        <?php if($userData): ?>
-          <a class="footer-links" href="<?= $BASE_URL ?>newmovie.php?action=movie">Adicionar filme</a>
-       <?php else: ?>
-        <a class="footer-links" href="<?= $BASE_URL ?>auth.php?action=movie">Adicionar filme</a>
-      <?php endif; ?>
-      </li>
-
-      <!-- Adicionar Crítica -->
-      <li class="footer-link">
-        <?php if($userData): ?>
-          <a class="footer-links" href="<?= $BASE_URL ?>index.php?action=review">
-            Adicionar crítica
-          </a>
-        <?php else: ?>
-          <a class="footer-links" href="<?= $BASE_URL ?>auth.php?action=review">Adicionar crítica</a>
-        <?php endif; ?>
-      </li>
-
-      <!-- Entrar / Registrar -->
-      <li class="footer-link">
-        <a class="footer-links" href="<?= $BASE_URL ?>auth.php">Entrar / Registrar</a>
-      </li>
-
-    </ul>
-  </div>
-
-  <p class="footer-txt"> &copy; 2026 MovieStar</p>
-</footer>
->>>>>>> alex-estilizacao-css

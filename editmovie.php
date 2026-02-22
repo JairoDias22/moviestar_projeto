@@ -47,7 +47,7 @@
 
       <!-- COLUNA DO FORMULÁRIO -->
       <div class="col-md-6 offset-md-1">
-        <h1><?= $movie->title ?></h1>
+        <h1><?= $movie->title; ?></h1>
         <p class="page-description">
           Altere os dados do filme no formulário abaixo:
         </p>
