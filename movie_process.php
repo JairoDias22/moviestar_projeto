@@ -7,6 +7,8 @@
   require_once("dao/UserDAO.php");
   require_once("dao/MovieDAO.php");
 
+
+
   $message = new Message($BASE_URL);
   $userDao = new UserDAO($conn, $BASE_URL);
   $movieDao = new MovieDAO($conn, $BASE_URL);
@@ -58,7 +60,9 @@
           // Gerando o nome da imagem
           $imageName = $movie->imageGenerateName();
 
-          imagejpeg($imageFile, "./img/movies/" . $imageName, 100);
+         $imagePath = __DIR__ . "/img/movies/" . $imageName;
+          imagejpeg($imageFile, $imagePath, 100);
+
 
           $movie->image = $imageName;
 
@@ -71,12 +75,14 @@
       }
 
       $movieDao->create($movie);
+      $message->setMessage("Filme adicionado com sucesso!", "success", "index.php");
 
     } else {
 
       $message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
 
     }
+    
 
   } else if($type === "delete") {
 
@@ -91,6 +97,8 @@
       if($movie->users_id === $userData->id) {
 
         $movieDao->destroy($movie->id);
+        $message->setMessage("Filme apagado com sucesso!", "success", "dashboard.php");
+
 
       } else {
 
@@ -167,6 +175,7 @@
           }
 
           $movieDao->update($movieData);
+          $message->setMessage("Dados do filme atualizados com sucesso!", "success", "dashboard.php");
 
         } else {
 
@@ -191,3 +200,5 @@
     $message->setMessage("Informações inválidas!", "error", "index.php");
 
   }
+
+  

@@ -1,12 +1,16 @@
 <?php
+
   // Incluir o cabeçalho
   require_once("templates/header.php");
 
   // Incluir o DAO dos filmes
   require_once("dao/MovieDAO.php");
 
+
   // Criar o objeto DAO para acessar os filmes
   $movieDao = new MovieDAO($conn, $BASE_URL);
+
+  
 
   // Buscar os filmes mais recentes
   $latestMovies = $movieDao->getLatestMovies() ?? []; /// Operador de Coalescencia nula
@@ -21,7 +25,7 @@
   <h2 class="section-title">Filmes novos</h2>
   <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
   <div class="movies-container">
-    <?php foreach($latestMovies ?? [] as $movie): ?>
+    <?php foreach(array_slice($latestMovies, 0, 4) as $movie): ?>
       <?php 
         // Exibir cada filme usando o template movie_card.php
         require("templates/movie_card.php"); 

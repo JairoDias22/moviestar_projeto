@@ -1,60 +1,57 @@
 <?php
   require_once("templates/header.php");
 
-  // Verifica se usuário está autenticado
+  // Models e DAOs
   require_once("models/Movie.php");
   require_once("dao/MovieDAO.php");
-  require_once("dao/ReviewDAO.php");
+  require_once("dao/ReviewDao.php"); 
 
   // Pegar o id do filme
   $id = filter_input(INPUT_GET, "id");
 
-  $movie;
+  $movie = null;
 
   $movieDao = new MovieDAO($conn, $BASE_URL);
-
-  $reviewDao = new ReviewDAO($conn, $BASE_URL);
+  $reviewDao = new ReviewDao($conn); 
 
   if(empty($id)) {
-
     $message->setMessage("O filme não foi encontrado!", "error", "index.php");
-
   } else {
-
     $movie = $movieDao->findById($id);
 
-    // Verifica se o filme existe
     if(!$movie) {
-
       $message->setMessage("O filme não foi encontrado!", "error", "index.php");
-
     }
-
   }
 
   // Checar se o filme tem imagem
-  if($movie->image == "") {
+  if($movie && $movie->image == "") {
     $movie->image = "movie_cover.jpg";
   }
 
   // Checar se o filme é do usuário
   $userOwnsMovie = false;
+  $alreadyReviewed = false;
 
-  if(!empty($userData)) {
+  if(!empty($userData) && $movie) {
 
     if($userData->id === $movie->users_id) {
       $userOwnsMovie = true;
     }
 
-    // Resgatar as revies do filme
-    $alreadyReviewed = $reviewDao->hasAlreadyReviewed($id, $userData->id);
- 
+    // Verifica se o usuário já avaliou o filme
+    $alreadyReviewed = $reviewDao->hasAlreadyReviewed($movie->id, $userData->id);
   }
 
   // Resgatar as reviews do filme
-  $movieReviews = $reviewDao->getMoviesReview($movie->id);
+  $movieReviews = $movie ? $reviewDao->getMoviesReview($movie->id) : [];
 
+  // Média de avaliações do filme
+  $movieRating = $movie ? $reviewDao->getRatings($movie->id) : 0;
 ?>
+
+
+
 <div id="main-container" class="container-fluid">
   <div class="row">
     <div class="offset-md-1 col-md-6 movie-container">
@@ -64,17 +61,20 @@
         <span class="pipe"></span>
         <span><?= $movie->category ?></span>
         <span class="pipe"></span>
-        <span><i class="fas fa-star"></i> <?= $movie->rating ?></span>
+        <span><i class="fas fa-star"></i> <?= $movieRating ?></span>
       </p>
       <iframe src="<?= $movie->trailer ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encryted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <p><?= $movie->description ?></p>
     </div>
     <div class="col-md-4">
-      <div class="movie-image-container" style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')"></div>
+<div class="movie-image-container" 
+     style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')">
+</div>
     </div>
     <div class="offset-md-1 col-md-10" id="reviews-container">
       <h3 id="reviews-title">Avaliações:</h3>
-      <!-- Verifica se habilita a review para o usuário ou não -->
+
+      <!-- Formulário de review -->
       <?php if(!empty($userData) && !$userOwnsMovie && !$alreadyReviewed): ?>
       <div class="col-md-12" id="review-form-container">
         <h4>Envie sua avaliação:</h4>
@@ -106,10 +106,16 @@
         </form>
       </div>
       <?php endif; ?>
+
       <!-- Comentários -->
-      <?php foreach($movieReviews as $review): ?>
-        <?php require("templates/user_review.php"); ?>
-      <?php endforeach; ?>
+     <?php foreach($movieReviews as $review): ?>
+        <?php
+          $reviewUser = $userDao->findById($review->users_id);
+        ?>
+      <?php require("templates/user_review.php"); ?>
+    <?php endforeach; ?>
+
+
       <?php if(count($movieReviews) == 0): ?>
         <p class="empty-list">Não há comentários para este filme ainda...</p>
       <?php endif; ?>
