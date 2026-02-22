@@ -1,63 +1,80 @@
 <?php
-require_once("templates/header.php");
-require_once("dao/MovieDAO.php");
 
-$movieDao = new MovieDAO($conn, $BASE_URL);
+  // Incluir o cabeçalho
+  require_once("templates/header.php");
 
-$latestMovies = $movieDao->getLatestMovies() ?? [];
-$actionMovies = $movieDao->getMoviesByCategory("Ação") ?? [];
-$comedyMovies = $movieDao->getMoviesByCategory("Comédia") ?? [];
-?>
+ // Mensagem de alerta Caso o usuario tentar adicionar uma critica
+if(isset($_GET["action"])){
 
-<div id="main-container" class="container-fluid">
+  if($_GET["action"] === "review"){
+    $message->setMessage(
+      "Por favor, selecione o filme para avaliar",
+      "success",
+      "index.php"
+    );
+  }
+
+}
+
+  // Incluir o DAO dos filmes
+  require_once("dao/MovieDAO.php");
+
+
+  // Criar o objeto DAO para acessar os filmes
+  $movieDao = new MovieDAO($conn, $BASE_URL);
+
   
-  <!-- Filmes novos -->
-   <div class="new-movie text-justify mb-4">
-  <h2 class="section-title d-inline-block border-start pb-1 border-warning">Filmes novos</h2>
-  <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
-  </div>
 
+  // Buscar os filmes mais recentes
+  $latestMovies = $movieDao->getLatestMovies() ?? []; /// Operador de Coalescencia nula
+
+  // Buscar filmes de categorias específicas
+  $actionMovies = $movieDao->getMoviesByCategory("Ação") ?? [];
+  $comedyMovies = $movieDao->getMoviesByCategory("Comédia") ?? [];
+?>
+<div id="main-container" class="container-fluid">
+
+  <!-- Seção: Filmes novos -->
+  <h2 class="section-title">Filmes novos</h2>
+  <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
   <div class="movies-container">
-    
-    <?php if (count($latestMovies) > 0): ?>
-      <?php foreach ($latestMovies as $movie): ?>
-        <?php require("templates/movie_card.php"); ?>
-      <?php endforeach; ?>
-    <?php else: ?>
+    <?php foreach(array_slice($latestMovies, 0, 4) as $movie): ?>
+      <?php 
+        // Exibir cada filme usando o template movie_card.php
+        require("templates/movie_card.php"); 
+      ?>
+    <?php endforeach; ?>
+    <?php if(count($latestMovies) === 0): ?>
       <p class="empty-list">Ainda não há filmes cadastrados!</p>
     <?php endif; ?>
   </div>
 
-  <!-- Ação -->
-  <div class="new-movie text-justify mb-4">
+  <!-- Seção: Ação -->
   <h2 class="section-title">Ação</h2>
   <p class="section-description">Veja os melhores filmes de ação</p>
-  </div>
   <div class="movies-container">
-    <?php if (count($actionMovies) > 0): ?>
-      <?php foreach ($actionMovies as $movie): ?>
-        <?php require("templates/movie_card.php"); ?>
-      <?php endforeach; ?>
-    <?php else: ?>
+    <?php foreach($actionMovies as $movie): ?>
+      <?php require("templates/movie_card.php"); ?>
+    <?php endforeach; ?>
+    <?php if(count($actionMovies) === 0): ?>
       <p class="empty-list">Ainda não há filmes de ação cadastrados!</p>
     <?php endif; ?>
   </div>
 
-  <!-- Comédia -->
-  <div class="new-movie text-justify mb-4">
+  <!-- Seção: Comédia -->
   <h2 class="section-title">Comédia</h2>
   <p class="section-description">Veja os melhores filmes de comédia</p>
-  </div>
   <div class="movies-container">
-    <?php if (count($comedyMovies) > 0): ?>
-      <?php foreach ($comedyMovies as $movie): ?>
-        <?php require("templates/movie_card.php"); ?>
-      <?php endforeach; ?>
-    <?php else: ?>
+    <?php foreach($comedyMovies as $movie): ?>
+      <?php require("templates/movie_card.php"); ?>
+    <?php endforeach; ?>
+    <?php if(count($comedyMovies) === 0): ?>
       <p class="empty-list">Ainda não há filmes de comédia cadastrados!</p>
     <?php endif; ?>
   </div>
 
 </div>
-
-<?php require_once("templates/footer.php"); ?>
+<?php
+  // Incluir o rodapé
+  require_once("templates/footer.php");
+?>

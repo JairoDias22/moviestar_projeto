@@ -1,5 +1,4 @@
-
-/*novo navbar*/
+/* /novo navbar/ */
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +11,10 @@ body {
   background-color: #000;
   color: #fff;
 }
+
+/* =====================================================
+   NAVBAR
+===================================================== */
 
 /* NAVBAR */
 #main-navbar {
@@ -39,10 +42,13 @@ body {
 #moviestar-title {
   font-size: 2.8vh;
   font-weight: bold;
-  color: #fff;  
+  color: #fff;
 }
 
-/* BUSCA */
+/* =====================================================
+   BUSCA
+===================================================== */
+
 #search-form {
   display: flex;
   align-items: center;
@@ -72,7 +78,30 @@ body {
   background-color: #f1f1f1;
 }
 
-/* MENU */
+/* Repetição mantida */
+#search-form {
+  display: flex; /*ativa o flexbox */
+  align-items: center; /*alinha verticalmente */
+}
+
+#search {
+  flex: 1; /* input ocupa todo espaço disponível */
+  padding: 8px 12px; /* altura e espaçamento interno */
+  font-size: 16px;
+}
+
+#search-form button {
+  padding: 8px 12px; /* mesma altura que o input */
+  display: flex; /* centraliza ícone dentro do botão */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
 .navbar-nav {
   list-style: none;
   display: flex;
@@ -102,27 +131,59 @@ body {
 }
 
 
-#search-form {
-  display: flex; /*ativa o flexbox */
-  align-items: center; /*alinha verticalmente */
+/* =========================================
+   FLASH MESSAGE
+========================================= */
+
+.msg-container {
+  width: 60%;
+  margin: 2vh auto;
+  padding: 2vh;
+  border-radius: 1vh;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeIn 0.4s ease-in-out;
+  border: 2px solid #f5c518;
+  background: linear-gradient(145deg, #1f1f1f, #2b2b2b);
+  box-shadow: 0 0 15px rgba(245, 197, 24, 0.3);
 }
 
-#search {
-  flex: 1; /* input ocupa todo espaço disponível */
-  padding: 8px 12px; /* altura e espaçamento interno */
-  font-size: 16px;
+.msg-text {
+  margin: 0;
+  font-size: 1rem;
 }
 
-#search-form button {
-  padding: 8px 12px; /* mesma altura que o input */
-  display: flex; /* centraliza ícone dentro do botão */
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+/* Tipos de mensagem */
+.msg-container.success {
+  border-color: #28a745;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.4);
 }
 
+.msg-container.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
+}
 
-.bi{
+.msg-container.warning {
+  border-color: #f5c518;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =====================================================
+   ÍCONES E UTILITÁRIOS
+===================================================== */
+
+.bi {
   color: #f5c518;
 }
 
@@ -130,26 +191,53 @@ body {
   margin: 1vh;
 }
 
-.d-grid{
+.d-grid {
   margin-left: -3vh;
 }
 
-.card{
-  display: inline-block;
-  padding-left: 1vh;
-  margin: 2vh;
+.new-movie {
   margin-left: 7vh;
 }
 
-.movie-card img {
-  height: 300px; /* altura fixa */
-  object-fit: contain; /* mostra a imagem inteira */
-  background-color: #000; /* preenche o espaço vazio */
+/* =====================================================
+   TELA INICIAL // STYLE: ALEX
+===================================================== */
+
+.card {
+  display: inline-block;
+  padding: 1vh;          /* padding uniforme */
+  margin: 2vh 2vh 2vh 7vh; /* mantém margem esquerda maior */
+  color: #ffffff;
+  background-color: #000;
+  width: 14rem;           /* largura fixa do card para alinhamento */
+  vertical-align: top;    /* garante que os cards fiquem alinhados na mesma linha */
+  border-radius: 0.5rem;  /* bordas arredondadas (opcional) */
+  overflow: hidden;       /* evita que conteúdo ultrapasse o card */
+}
+
+.card img {
+  width: 100%;            /* ocupa toda a largura do card */
+  height: 300px;          /* altura fixa para todas as imagens */
+  object-fit: contain;      /* mantém proporção sem distorcer */
+  display: block;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column; /* organiza título, nota e botões em coluna */
+  justify-content: space-between; /* empurra botões para baixo */
+  width: 16vw;
+}
+
+.movie-card {
+  width: 18vw;        /* largura proporcional à tela */
+  
 }
 
 .movie-card .card-title {
   margin-top: 1.6vh;
   letter-spacing: 0.05vh;
+  color: #ffffff;
 }
 
 .movie-card {
@@ -162,37 +250,43 @@ body {
   box-shadow: 0 1.5vh 4vh #f5c518;
 }
 
-.new-movie{
-  margin-left: 7vh;
+/* Estrela de avaliação */
+.fas {
+  color: #f5c518;
 }
-
 
 .section-title {
-    border-left-width: 0.4vh; /* espessura da borda */
-    border-left-style: solid;
-    border-left-color: #ffc107; /* equivalente ao border-warning */
-    padding-left: 1vh; /* distância entre a borda e o texto */
-    height: 1.2em; /* altura da borda igual à linha de texto */
+  border-left-width: 0.4vh;
+  border-left-style: solid;
+  border-left-color: #ffc107;
+  padding-left: 1vh;
+  height: 1.2em;
+}
+
+/* =====================================================
+   STYLE DE ADICIONAR FILME - LAURA
+===================================================== */
+
+.page-title {
+  font-size: 5vh;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page-description {
+  font-size: 18px;
+  margin-bottom: 5vh;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centraliza os inputs */
 }
 
 
-
-/*Style de adicionar filme*/
-/* 
-/*titulo e descrição*/
-.page-title{
-    font-size: 5vh;
-    font-weight: bold;
-    text-align: center;
-}
-
-.page-description{
-    font-size: 18px;
-    margin-bottom: 5vh;
-    text-align: center;
-}
-/*botões*/
-.btn00{
+/* Botões */
+.btn00 {
   background-color: #f5c518;
   color: #000;
   border: none;
@@ -205,48 +299,63 @@ body {
   margin-bottom: 10vh;
 }
 
-.btn01{
+.btn01 {
   background-color: #f5c518;
   color: #000;
   width: 8vh;
-  height:3vh;
+  height: 3vh;
   padding: 1vh;
   font-size: 2vh;
 }
 
-.btn02{
+.btn02 {
   background-color: #6e6e6e;
   color: #1139be;
   width: 8vh;
-  height:3vh;
+  height: 3vh;
   padding: 1vh;
   font-size: 2vh;
 }
 
-.bnt04{
+.bnt04 {
   height: 4.3vh;
   width: 4.3vh;
-   margin-top: 0vh;
+  margin-top: 0vh;
 }
 
+.bt {
+  margin-left: -1vh;
+}
 
+/* =====================================================
+   ÍCONES ESPECÍFICOS
+===================================================== */
 
-/*estrela de avaliação*/
-.bi{
+.bi {
   color: #f5c518;
   position: absolute;
   margin-left: -2vh;
   margin-top: 0.2vh;
- 
 }
 
-/*ícone de busca*/
-.bi-search{
+.bi-search {
   color: #000;
   text-align: center;
   margin-top: -0.5vh;
   margin-left: -1vh;
 }
+
+.bi-plus-square {
+  margin-left: -3vh;
+}
+
+.cd {
+  margin-left: -0.1vh;
+
+}
+
+/* 
+
 /*título da página dashoard*/
 .section-title{
   font-family: "Concert One", sans-serif;
@@ -262,6 +371,48 @@ body {
   font-size: 5vh; 
 }
 
+/* Icones */
+.action-buttons {
+  display: flex;
+  margin-left: -20vh;
+  align-items: center;
+}
+
+.action-buttons form {
+  margin: 0;
+}
+
+.edit-btn, .delete-btn {
+  padding: 1vh 2vh;
+  border-radius: 1vh;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Editar */
+.edit-btn { 
+  background-color: #ffc107;
+  color: #000;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Deletar */
+.delete-btn {
+  margin-right: -20vh;
+  margin-left: 2vh;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
 
 /* FOOTER */
   footer{
@@ -315,6 +466,15 @@ body {
   text-align: center;
 }
 
+.fa-times {
+  color: #0d6efd;
+}
+
+.add{
+ 
+  padding: auto;
+  left: 85%;
+}
        
 .btn05{ 
   margin-left: 176vh;
@@ -329,14 +489,17 @@ body {
   .edit-profile-page{ 
     margin-top: 1%;
   }
-  #profile-image-container{
-    width: clamp(150px, 30vw, 175px);
-    height: clamp(150px, 30vw, 175px);
-    border: 3px solid #f5c518;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    margin-left: 25%;
-  }
+ #profile-image-container{
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+
+  background-size: cover;       /* faz a imagem preencher */
+  background-position: center;  /* centraliza o rosto */
+  background-repeat: no-repeat;
+
+  border: 3px solid #f5c518;    /* opcional (fica bonito estilo IMDb) */
+}
   .page-description{
     margin-bottom: 20px;
     color: #555;
@@ -346,80 +509,35 @@ body {
     background-color: #f5c518;
   }
 
-/* FOOTER */
-  footer{
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: clamp(1rem, 2vw, 2rem);
-    width: 100%;
-    align-items: center;
-    font-size: clamp(0.5rem, 1vw, 1rem);
-    color: white;
-    bottom: 0;
-}
-
-.social-container{
-    gap: clamp(1rem, 3vw, 1.8rem);
-    margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
-}
-.fab{
-    font-size: 1.2rem;
-  }
-.social-item, .footer-link{
-    display: inline-block;
-    align-items: center;
-    
-}
-.footer-links, .fab{
-    padding: 10px;
-    color: white;
-}
-.footer-links-container{
-    gap: clamp(1.2rem, 4vw, 2rem);
-  }
-.footer-link :hover{
-    text-decoration: none;
-    color: #f5c518;
-}
-.social-item :hover{
-  background-color: #f5c518;
-  border-radius: 100%;
-}
-.footer-txt{
-  margin-top: 1.5%;
-}
-ul{
-  padding-inline-start: 0px;
-}
-.container-fluid{
-  min-height: 70vh;
-}
-
-
-
+  
 /* CADU ESTYLE - MOVIE.php*/
-
-/* .page-title{
-  font-family: "Concert One", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 5vh;
-
-  ja conectada com todas as fontes
-} */
 
 /*Linha amarela horizontal*/
 .page-title{
    border-bottom: 0.05em solid #ffc107;
    padding-bottom: 0.05em;
    margin-bottom: 2vh;
+   margin-left: 2vh;
+   width: 50vhvh;
 }
 
 /*Detalhes, duração etc. abaixo titulo*/
+
 .movie-details{
   margin-top: 1vh;
   font-size: 0.95em;
   color: #ccc;
+}
+.movie-image-container {
+  margin-left: 20vh;
+  margin-top: 10vh;
+}
+
+.movie-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* corta proporcionalmente */
+
 }
 
 .movie-details span{
@@ -428,32 +546,159 @@ ul{
 
 .movie-details .pipe{
   color: #666;
-  margin-right: 0.8em;
+  margin-right: 0.9em;
 }
 
 .movie-details i{
+  
   color: #ffc107;
   margin-right: 0.03em;
 }
 
 .movie-details{
-  margin-left: 30vh;
-}
-
-
-iframe{
-  margin-left: 20vh;
-}
-
-.description{
   margin-left: 35vh;
 }
 
-/* 
-Avaliações */
+/* Trailer do filme */
+iframe{
+  margin-left: 7vh;
+}
 
-
+.description{
+  text-align: center;
+}
 
 .movie-image-container{
-  height: 50vh;
+  margin-left: 10vh;
+  margin-top: 15vh;
+  width: 43vh;
+  height: 52vh
+}
+
+/* Editar o filme */
+
+.edit-image-container{
+ margin-left: 10vh;
+  margin-top: 15vh;
+  width: 40vh;
+  height: 52vh
+}
+
+/* avaliações */
+
+/* CARD DO FORM */
+.review-card {
+  margin-left: 25vh;
+  background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+  padding: 2vh;
+  border-radius: 1vh;
+  margin-bottom: 5vh;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  width: 170vh;
+}
+
+.review-card h4 {
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+
+.profile-image-container {
+  width: 60px;
+  height: 60px;          /* ← ESSENCIAL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+.review-card p {
+  color: #bbb;
+  margin-bottom: 2vh;
+}movie-image-container
+
+/* SELECT */
+#rating {
+  width: 80vh;
+  padding: 1vh;
+  border-radius: 1vh;
+  border: none; 
+  margin-top: 1vh;
+  margin-bottom: 3vh;
+}
+
+/* TEXTAREA */
+#review {
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  color: #fff;
+  width: 80vh;
+  border-radius: 2vh;
+  padding: 2vh;
+}
+
+
+/* BOTÃO */
+.review-btn {
+  background-color: #f5c518;
+  color: #000;
+  font-weight: bold;
+  padding: 1vh 2vh;
+  border: none;
+  border-radius: 1vh;
+  transition: 0.3s;
+}
+
+/* TITULO AVALIAÇÃO */
+#reviews-title{
+  border-top: 0.1em solid #ffc107;
+  padding-top: 0.7em;
+  margin-top: 2vh;
+  margin-left: 25vh;
+  width: 180vh;
+}
+
+/* COMENTARIO : Enzo*/
+
+
+#h2_cont  act{
+  border-bottom: 0.1vh solid #f5c518;
+  width: 33%;
+  margin-left:25%;
+  text-align: center;
+
+}
+
+#login-container{
+  margin-left: 15%;
+  margin-top:2% ;
+}
+
+#register-container{
+  margin-left: 5%;
+  margin-top: 2%;
+
+}
+.author-name{
+  margin-top: 5vh;
+  font-size: 3vh;
+}
+.form-control{
+  width: 80%;
+  margin-bottom:5%;
+}
+
+.form-control1{
+ width: 80%;
+ height: 4vh;
+ display: block;
+ margin-bottom:5%;
+}
+#title_auth{
+    border-bottom: 0.1vh solid #f5c518;
+    text-align: center;
+    width: 20%;
+    margin-left: 30%;
+}
+#btn_registrar{
+  background-color: #f5c518;
+  width: 80%;
 }

@@ -8,8 +8,7 @@
 
   // Resgata busca do usuário
   $q = filter_input(INPUT_GET, "q");
-
-  $movies = $movieDao->findByTitle($q);
+  $movies = $movieDao->findByTitle($q) ?? []; /// Operador de Coalencia nula
 
 ?>
   <div id="main-container" class="container-fluid">
