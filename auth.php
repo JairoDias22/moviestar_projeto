@@ -164,52 +164,8 @@
         </div>
 
       </div>
-
-      <!-- Formulário de registro -->
-      <div class="col-md-4" id="register-container">
-        <h2>Criar Conta</h2>
-        <form action="<?= $BASE_URL ?>auth_process.php" method="POST">
-          <input type="hidden" name="type" value="register"> <!-- Tipo de ação -->
-
-          <!-- E-mail -->
-          <div class="form-group">
-            <label for="email">E-mail:</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail">
-          </div>
-
-          <!-- Nome -->
-          <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Digite seu nome">
-          </div>
-
-          <!-- Sobrenome -->
-          <div class="form-group">
-            <label for="lastname">Sobrenome:</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Digite seu sobrenome">
-          </div>
-
-          <!-- Senha -->
-          <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
-          </div>
-
-          <!-- Confirmação de senha -->
-          <div class="form-group">
-            <label for="confirmpassword">Confirmação de senha:</label>
-            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirme sua senha">
-          </div>
-
-          <!-- Botão de registrar -->
-          <input type="submit" class="btn card-btn" value="Registrar">
-        </form>
-      </div>
-
     </div>
   </div>
-</div>
-
 <?php
   // Inclui o footer padrão do site
   require_once("templates/footer.php");
