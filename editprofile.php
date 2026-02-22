@@ -114,44 +114,6 @@
           </div>
 
         </div>
-
-        <div class="col-md-4">
-          <div id="profile-image-container" 
-               style="background-image: url('<?= $BASE_URL ?>img/users/<?= $userData->image ?>')"></div>
-
-          <div class="form-group">
-            <label for="image">Foto:</label>
-            <input type="file" class="form-control-file" name="image">
-          </div>
-
-          <div class="form-group">
-            <label for="bio">Sobre você:</label>
-            <textarea class="form-control" name="bio" id="bio" rows="5"><?= $userData->bio ?></textarea>
-          </div>
-        </div>
-      </div>
-    </form>
-
-    <div class="row" id="change-password-container">
-      <div class="col-md-4">
-        <h2>Alterar a senha:</h2>
-        <p class="page-description">Digite a nova senha e confirme:</p>
-
-        <form action="<?= $BASE_URL ?>user_process.php" method="POST">
-          <input type="hidden" name="type" value="changepassword">
-
-          <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" class="form-control" id="password" name="password">
-          </div>
-
-          <div class="form-group">
-            <label for="confirmpassword">Confirmação de senha:</label>
-            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
-          </div>
-
-          <input type="submit" class="btn card-btn" value="Alterar Senha">
-        </form>
       </div>
     </form>
 
